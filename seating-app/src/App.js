@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.min.css'; // This is required for bootstrap components to function correctly!
 import NavBar from './Components/Navbar'
 
 import logo from './logo.svg';
