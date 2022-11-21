@@ -1,17 +1,23 @@
 import Container from 'react-bootstrap/Container'
-import Nav from 'react-bootstrap/Nav'
-import Navbar from 'react-bootstrap/Navbar'
+import {Nav, Navbar } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
 
 const NavBar = () => {
   return (
     <Navbar bg='light' expand='lg'>
       <Container>
-        <Navbar.Brand href="#home">Acme Restaurant</Navbar.Brand>
+        <LinkContainer to="/">
+          <Navbar.Brand href="#home">Acme Restaurant</Navbar.Brand>
+        </LinkContainer>
         <Navbar.Toggle aria-controls="reserve-navbar-nav"/>
         <Navbar.Collapse id="reserve-navbar-navv">
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#Reserve">Reserve</Nav.Link>
+            <LinkContainer to="/home">
+              <Nav.Link href="home">Home</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="reserve">
+              <Nav.Link href="reserve">Reserve</Nav.Link>
+            </LinkContainer>
           </Nav>
         </Navbar.Collapse>
       </Container>

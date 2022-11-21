@@ -1,27 +1,23 @@
 import 'bootstrap/dist/css/bootstrap.min.css'; // This is required for bootstrap components to function correctly!
-import NavBar from './Components/Navbar'
-
-import logo from './logo.svg';
+import {
+  Route,
+  Routes
+} from 'react-router-dom'
+import ShellPage from './Components/ShellPage'
+import Home from './Components/Home'
+import Reserve from './Components/Reserve'
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <NavBar />
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route path="/" element={<ShellPage />}>
+          <Route index element={<Home />} />
+          <Route path="home" element={<Home/>} />
+          <Route path="reserve" element={<Reserve/>} />
+        </Route>
+      </Routes>
     </div>
   );
 }
