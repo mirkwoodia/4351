@@ -1,25 +1,26 @@
 import React, { useState } from 'react';
 import { PropTypes } from 'prop-types'
 import { Form, Button } from 'react-bootstrap'
+import { callBackendAPI } from '../util/Requests'
 
-const LoginPrompt = ({ token, setShowLogin, setLoggedIn }) => {
+const LoginPrompt = ({ token, setShowLogin }) => {
   const [registerPrompt, setRegisterPrompt] = useState(false)
 
   const setToken = token.setToken
   const userToken = token.userToken
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    let token;
+    let res;
     if (registerPrompt) {
-      token = {userId: 'registered', loggedIn: true} // this is a placeholder for logic including communication with the backend
+      res = await callBackendAPI('admin')
     }
     else {
-      token = {userId: 'logged_in', loggedIn: true} // this is a placeholder for logic including communication with the backend
+      res = await callBackendAPI('user')
     }
-    setToken(token)
+    const newToken = {userId: res.userId, loggedIn: true} // this is a placeholder for logic including communication with the backend
+    setToken(newToken)
     setShowLogin(false)
-    setLoggedIn(true)
   }
 
   if (registerPrompt) {
@@ -89,7 +90,6 @@ LoginPrompt.propTypes = {
     }).isRequired
   }).isRequired,
   setShowLogin: PropTypes.func.isRequired,
-  setLoggedIn: PropTypes.func.isRequired
 }
 
 export default LoginPrompt
