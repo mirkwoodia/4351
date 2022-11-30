@@ -9,15 +9,31 @@ import Home from './Components/Home'
 import Reserve from './Components/Reserve'
 import ErrorPage from './Components/ErrorPage'
 import './App.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function App() {
   const [userToken, setUserToken] = useState({userId: 'not_registered', loggedIn: false})
-
+  const [data, getData] = useState({})
   const token = {
     setToken: setUserToken,
     userToken: userToken
   }
+
+  useEffect(() => {
+    const url = "/express_backend";
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url);
+        const json = await response.json();
+        getData(json);
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div className="App">
@@ -31,6 +47,7 @@ function App() {
         </Route>
       </Routes>
       {userToken.userId}
+      <p>{data.express}</p>
     </div>
   );
 }

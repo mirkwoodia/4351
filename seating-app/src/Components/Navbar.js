@@ -9,14 +9,21 @@ const NavBar = ({ token }) => {
   const [showLogin, setShowLogin] = useState(false)
   const handleShowLogin = () => { setShowLogin(true) }
   const handleCloseLogin = () => { setShowLogin(false) }
+
   const [showUser, setShowUser] = useState(false)
   const handleShowUser = () => { setShowUser(true) }
   const handleCloseUser = () => { setShowUser(false) }
   
-  const [loggedIn, setLoggedIn] = useState(false)
-  
+  const handleLogout = () => {
+    token.setToken({
+      userId: 'not_registered',
+      loggedIn: false
+    })
+    window.location.href='/'
+  }
+
   const Login = () => {
-    if (!loggedIn) {
+    if (!token.userToken.loggedIn) {
       return (
         <>
           <Nav.Link as="Button" style={{ borderStyle: 'none', background: 'none' }}
@@ -32,6 +39,10 @@ const NavBar = ({ token }) => {
           <Nav.Link as="Button" style={{ borderStyle: 'none', background: 'none' }}
                     onClick={handleShowUser}>
             User
+          </Nav.Link>
+          <Nav.Link as="Button" style={{ borderStyle: 'none', background: 'none' }}
+                    onClick={handleLogout}>
+            Log Out
           </Nav.Link>
         </>
       )
@@ -61,7 +72,7 @@ const NavBar = ({ token }) => {
       </Navbar>
       <Modal show={showLogin} onHide={handleCloseLogin}>
         <Card style={{padding: "8px"}}>
-          <LoginPrompt token={token} setShowLogin={setShowLogin} setLoggedIn={setLoggedIn} />
+          <LoginPrompt token={token} setShowLogin={setShowLogin} />
         </Card>
       </Modal>
       <Modal show={showUser} onHide={handleCloseUser}>
